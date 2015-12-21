@@ -13,7 +13,7 @@ def main():
                         fc="Yes"
                     else:
                         fc="No"
-                    json.write('{"id":%d,"lat":%f,"lon":%f,"name":"%s","waterbody":"%s","inspdate":"%s","distance":%f,"ub":"%s","fc":"%s","aid":"%s"},'%(ftr.BarrierID,ftr.Latitude,ftr.Longitude,ftr.Barrier_Nm.replace("\"","'"),ftr.WaterbodyN,ftr.Last_Inspe,ftr.Shape_Leng,ftr.UpstreamID,fc,ftr.Agency_ID))
+                    json.write('{"id":%d,"lat":%f,"lon":%f,"name":"%s","waterbody":"%s","inspdate":"%s","distance":%f,"ub":"%s","fc":"%s","aid":"%s"},'%(ftr.BarrierID,ftr.Latitude,ftr.Longitude,ftr.Barrier_Nm.replace("\"","'"),ftr.WaterbodyN,ftr.Last_Inspe,ftr.Shape_Leng,ftr.UpstreamID,fc,ftr.AgencyID))
                     count=count+1
                 json.seek(json.tell()-1)
                 json.write("]")
