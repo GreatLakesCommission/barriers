@@ -10,7 +10,7 @@ def main():
                 txt.write("[")
                 for ftr in ftrs:
                     #txt.write('%f\t%f\t%s\t%s\t-10,-25\ticons\\flag.png\n'%(ftr.Latitude,ftr.Longitude,ftr.StreamName,ftr.Years))
-                    txt.write('{"lat":%f,"lon":%f,"id":"%s","country":"%s","agency":"%s","lake":"%s","stream":"%s","years":[%s],"catch":[%s]},'%(ftr.Latitude,ftr.Longitude,ftr.Identifier,ftr.Country,ftr.Agency,ftr.LakeName,ftr.StreamName,ftr.Years,ftr.Catches))
+                    txt.write('{"lat":%f,"lon":%f,"id":"%s","country":"%s","agency":"%s","lake":"%s","stream":"%s","years":[%s],"catch":[%s],"img":"%s"},'%(ftr.Latitude,ftr.Longitude,ftr.Identifier,ftr.Country,ftr.Agency,ftr.LakeName,ftr.StreamName,ftr.Years,ftr.Catches,,ftr.Link))
                     count=count+1
                 txt.seek(txt.tell()-1)
                 txt.write("]")
