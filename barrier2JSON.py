@@ -1,16 +1,17 @@
 import arcpy
 import os
+import sys
+import getopt
 
 
-def main(fcp, outnm='barriers.json'):
+def main(fcp, outnm):
     dname = os.path.dirname(fcp)
     fc = os.path.basename(fcp)
     arcpy.env.workspace = dname
     try:
         ftrs=arcpy.SearchCursor(fc)
         if ftrs is not None:
-            plen = len(dname)
-            if dname[plen - 3:] == 'gdb':
+            if dname[-3:] == 'gdb':
                 output = os.path.join(os.path.dirname(dname), outnm)
             else:
                 output = os.path.join(dname, outnm)
@@ -30,7 +31,21 @@ def main(fcp, outnm='barriers.json'):
     except Exception as e:
         print(str(e))
     else:
-        print("done.%d records were written to the file\n"%count)
+        print("done.{} records were written to {}\n".format(count, output))
 if __name__ == '__main__':
     fclass = 'ArcGIS\\stream\\Update05_13\\BarrierPrj05_13.shp'
-    main(fclass)
+    onm = 'barriers.json'
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],'hi:o:',['help', 'ipath=', 'oname='])
+    except getopt.GetoptError:
+        print 'barrier2JSON.py -i <inputfeatureclass> -o <outputname>'
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt in ('-h', '--help'):
+            print 'barrier2JSON.py -i <inputfeatureclass> -o <outputname>'
+            sys.exit()
+        elif opt in ('-i', '--ipath'):
+            fclass = str(arg)
+        elif opt in ('-o', '--oname'):
+            onm = str(arg)
+    main(fclass, onm)
