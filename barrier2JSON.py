@@ -1,10 +1,20 @@
 import arcpy
-def main():
-    arcpy.env.workspace="ArcGIS\\stream\\Update05_13"
+import os
+
+
+def main(fcp, outnm='barriers.json'):
+    dname = os.path.dirname(fcp)
+    fc = os.path.basename(fcp)
+    arcpy.env.workspace = dname
     try:
-        ftrs=arcpy.SearchCursor("BarrierPrj05_13.shp")
+        ftrs=arcpy.SearchCursor(fc)
         if ftrs is not None:
-            with open(r"barriers.json","w") as json:
+            plen = len(dname)
+            if dname[plen - 3:] == 'gdb':
+                output = os.path.join(os.path.dirname(dname), outnm)
+            else:
+                output = os.path.join(dname, outnm)
+            with open(output,"w") as json:
                 count=0
                 fc=None
                 json.write("[")
@@ -22,4 +32,5 @@ def main():
     else:
         print("done.%d records were written to the file\n"%count)
 if __name__ == '__main__':
-    main()
+    fclass = 'ArcGIS\\stream\\Update05_13\\BarrierPrj05_13.shp'
+    main(fclass)
